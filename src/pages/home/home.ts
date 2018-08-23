@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { HttpModule} from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -10,13 +10,19 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 })
 export class HomePage {
   public produtos
-  constructor(public navCtrl: NavController, public http:HttpClient) {
+  public loading
+  constructor(
+    public navCtrl: NavController, 
+    public http:HttpClient,
+    public loadingCtrl: LoadingController
+  ) {
 
   }
 
 
   ionViewDidLoad(){
    this.getProdutos()
+   
   }
 
 
@@ -31,9 +37,11 @@ teste(){
 
 
 getProdutos(){
+  this.carregando('Lista de produtos')
   this.http.get('http://172.17.19.122/api/produtos/').toPromise().then(response => {
   console.log(response)
   this.produtos = response
+  this.loading.dismiss();
   }).catch(
     
   )
@@ -43,7 +51,13 @@ getProdutos(){
 
 
 
-
+carregando(mensagem) {
+  this.loading = this.loadingCtrl.create({
+    spinner: 'ios',
+    content: `Aguarde: ${mensagem}`
+  });
+  this.loading.present();
+}
 
 
 

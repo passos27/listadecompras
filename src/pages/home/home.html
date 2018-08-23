@@ -7,15 +7,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
  
-<h1>Produtos cadastrados</h1>
+<h1 padding>Produtos cadastrados</h1>
 
 
 
 <ion-card *ngFor="let produto of produtos">
 
   <img src="{{produto.foto}}">
+  <img *ngIf="produto.foto==null" src="http://www.imagens.usp.br/wp-content/uploads/10032015-feij%C3%A3o-foto-marcos-Santos-016.jpg">
+
 
   <ion-card-content>
     
