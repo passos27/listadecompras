@@ -9,10 +9,13 @@
 
 <ion-content>
  
-<h1 padding>Produtos cadastrados</h1>
+  <button ion-button round color="primary" (click)="codigodeBarras()" >Ler código de barras</button>
 
 
+<!-- <h1 padding>Produtos cadastrados</h1> -->
 
+
+<!-- 
 <ion-card *ngFor="let produto of produtos">
 
   <img src="{{produto.foto}}">
@@ -27,15 +30,22 @@
 
   <ion-row>
    <h1 padding>R$ {{produto.valor}}</h1> 
-  </ion-row>
+  </ion-row> 
+
+
+  
+
+
 
 </ion-card>
 
+-->
 
 
 
-
-
+<h1 tex-center>
+    {{codigoBarras}}
+</h1>
 
 
 </ion-content>

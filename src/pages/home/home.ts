@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { HttpModule} from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @Component({
   selector: 'page-home',
@@ -11,17 +11,19 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 export class HomePage {
   public produtos
   public loading
+  public codigoBarras
   constructor(
     public navCtrl: NavController, 
     public http:HttpClient,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public barcodeScanner: BarcodeScanner
   ) {
 
   }
 
 
   ionViewDidLoad(){
-   this.getProdutos()
+  //  this.getProdutos()
    
   }
 
@@ -38,7 +40,7 @@ teste(){
 
 getProdutos(){
   this.carregando('Lista de produtos')
-  this.http.get('http://172.17.19.122/api/produtos/').toPromise().then(response => {
+  this.http.get('http://172.17.23.107/api/produtos/').toPromise().then(response => {
   console.log(response)
   this.produtos = response
   this.loading.dismiss();
@@ -59,6 +61,20 @@ carregando(mensagem) {
   this.loading.present();
 }
 
+
+
+
+codigodeBarras(){
+  this.barcodeScanner.scan().then(barcodeData => {
+    console.log('Barcode data', barcodeData);
+    this.codigoBarras = barcodeData.text
+
+
+    console.log(this.codigoBarras.text)
+  }).catch(err => {
+       console.log('Error', err);
+  });
+}
 
 
 
